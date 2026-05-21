@@ -108,9 +108,9 @@ public class SimulationEngine {
         for (int step = 1; step <= steps; step++) {
 
             System.out.println(
-                    "\n========= STEP "
+                    "\nPaso "
                             + step
-                            + " ========="
+                            + " "
             );
 
             simulateTourists();

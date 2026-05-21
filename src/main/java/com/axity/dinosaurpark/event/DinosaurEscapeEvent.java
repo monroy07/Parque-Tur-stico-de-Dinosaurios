@@ -11,7 +11,7 @@ public class DinosaurEscapeEvent extends ParkEvent {
     public void execute() {
 
         System.out.println(
-                "🚨 Un dinosaurio escapó del recinto!"
+                "Un dinosaurio escapó del parque"
         );
 
         resolve();

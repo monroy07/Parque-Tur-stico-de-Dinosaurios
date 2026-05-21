@@ -11,7 +11,7 @@ public class StormEvent extends ParkEvent {
     public void execute() {
 
         System.out.println(
-                "🌧️ Tormenta torrencial en el parque!"
+                "Tormenta torrencial en el parque!"
         );
 
         resolve();

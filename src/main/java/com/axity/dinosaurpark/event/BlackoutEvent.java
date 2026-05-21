@@ -11,7 +11,7 @@ public class BlackoutEvent extends ParkEvent {
     public void execute() {
 
         System.out.println(
-                "⚡ Ocurrió un apagón masivo!"
+                "Ocurrió un apagón masivo!"
         );
 
         resolve();

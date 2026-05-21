@@ -16,7 +16,7 @@ public class ParkMonitor {
             PowerPlant powerPlant
     ) {
 
-        System.out.println("\n====== PARK MONITOR ======");
+        System.out.println("\nPARK MONITOR");
 
         System.out.println(
                 "Arrival visitors: "
@@ -43,6 +43,6 @@ public class ParkMonitor {
                         + powerPlant.getEnergy()
         );
 
-        System.out.println("==========================");
+
     }
 }
