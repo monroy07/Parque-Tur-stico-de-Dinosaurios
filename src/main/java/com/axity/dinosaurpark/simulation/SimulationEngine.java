@@ -74,7 +74,6 @@ public class SimulationEngine {
 
         initializeTourists();
     }
-
     private void initializeDinosaurs() {
 
         observationZone.addDinosaur(
@@ -83,6 +82,14 @@ public class SimulationEngine {
 
         observationZone.addDinosaur(
                 new HerbivoreDinosaur(2, "Trice")
+        );
+
+        observationZone.addDinosaur(
+                new CarnivoreDinosaur(3, "Raptor")
+        );
+
+        observationZone.addDinosaur(
+                new HerbivoreDinosaur(4, "Brachio")
         );
     }
 

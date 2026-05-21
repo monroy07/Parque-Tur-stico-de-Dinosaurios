@@ -9,6 +9,6 @@ public class Main {
         SimulationEngine engine =
                 new SimulationEngine();
 
-        engine.runSimulation(5);
+        engine.runSimulation(10);
     }
 }
