@@ -1,5 +1,6 @@
 package com.axity.dinosaurpark.simulation;
 
+import com.axity.dinosaurpark.monitoring.ParkMonitor;
 import com.axity.dinosaurpark.model.CarnivoreDinosaur;
 import com.axity.dinosaurpark.model.HerbivoreDinosaur;
 import com.axity.dinosaurpark.model.Tourist;
@@ -14,6 +15,8 @@ import java.util.List;
 import java.util.Random;
 
 public class SimulationEngine {
+
+    private final ParkMonitor monitor;
 
     private final ArrivalZone arrivalZone;
 
@@ -65,6 +68,8 @@ public class SimulationEngine {
 
         this.random = new Random();
 
+        this.monitor = new ParkMonitor();
+
         initializeDinosaurs();
 
         initializeTourists();
@@ -112,6 +117,14 @@ public class SimulationEngine {
             powerPlant.simulateStep();
 
             eventManager.simulateRandomEvent();
+
+            monitor.displayStatus(
+                    arrivalZone,
+                    centralHub,
+                    bathroomZone,
+                    observationZone,
+                    powerPlant
+            );
         }
     }
 
