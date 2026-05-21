@@ -32,44 +32,39 @@ public class PowerPlant {
     public void simulateStep() {
 
         if (!active) {
-
             System.out.println("[PowerPlant] SIN ENERGÍA");
-
             return;
         }
 
         energy -= consumptionPerStep;
 
-        if (random.nextDouble() < failureProbability) {
-
+        if (energy <= 0) {
+            energy = 0;
             active = false;
-
-            System.out.println(
-                    "[PowerPlant] FALLA ELÉCTRICA"
-            );
+            System.out.println("[PowerPlant] SIN ENERGÍA");
+            return;
         }
 
-        System.out.println(
-                "[PowerPlant] Energía restante: " + energy
-        );
+        if (random.nextDouble() < failureProbability) {
+            active = false;
+            System.out.println("[PowerPlant] FALLA ELÉCTRICA");
+            return;
+        }
+
+        System.out.println("[PowerPlant] Energía restante: " + energy);
     }
 
     public void repair() {
 
         active = true;
-
-        System.out.println(
-                "[PowerPlant] Reparación completada"
-        );
+        System.out.println("[PowerPlant] Reparación completada");
     }
 
     public boolean isActive() {
-
         return active;
     }
 
     public double getEnergy() {
-
         return energy;
     }
 }

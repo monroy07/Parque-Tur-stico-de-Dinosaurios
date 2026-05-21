@@ -1,9 +1,11 @@
 package com.axity.dinosaurpark.simulation;
 
+import com.axity.dinosaurpark.factory.DinosaurFactory;
 import com.axity.dinosaurpark.monitoring.ParkMonitor;
 import com.axity.dinosaurpark.model.CarnivoreDinosaur;
 import com.axity.dinosaurpark.model.HerbivoreDinosaur;
 import com.axity.dinosaurpark.model.Tourist;
+import com.axity.dinosaurpark.repository.DatabaseManager;
 import com.axity.dinosaurpark.zone.ArrivalZone;
 import com.axity.dinosaurpark.zone.BathroomZone;
 import com.axity.dinosaurpark.zone.CentralHub;
@@ -19,13 +21,9 @@ public class SimulationEngine {
     private final ParkMonitor monitor;
 
     private final ArrivalZone arrivalZone;
-
     private final CentralHub centralHub;
-
     private final BathroomZone bathroomZone;
-
     private final ObservationZone observationZone;
-
     private final PowerPlant powerPlant;
 
     private final EventManager eventManager;
@@ -34,35 +32,25 @@ public class SimulationEngine {
 
     private final Random random;
 
+
+    private final DatabaseManager db;
+
     public SimulationEngine() {
 
         this.arrivalZone = new ArrivalZone(20, 25.0);
 
-        this.centralHub = new CentralHub(
-                30,
-                15.0,
-                0.4
-        );
+        this.centralHub = new CentralHub(30, 15.0, 0.4);
 
-        this.bathroomZone = new BathroomZone(
-                10,
-                20.0,
-                0.2
-        );
+        this.bathroomZone = new BathroomZone(10, 20.0, 0.2);
 
-        this.observationZone = new ObservationZone(
-                "Raptor Zone",
-                15,
-                30.0
-        );
+        this.observationZone = new ObservationZone("Raptor Zone", 15, 30.0);
 
-        this.powerPlant = new PowerPlant(
-                100,
-                2,
-                0.1
-        );
+        this.powerPlant = new PowerPlant(100, 2, 0.1);
 
         this.eventManager = new EventManager();
+
+
+        this.db = new DatabaseManager();
 
         this.tourists = new ArrayList<>();
 
@@ -71,17 +59,17 @@ public class SimulationEngine {
         this.monitor = new ParkMonitor();
 
         initializeDinosaurs();
-
         initializeTourists();
     }
+
     private void initializeDinosaurs() {
 
         observationZone.addDinosaur(
-                new CarnivoreDinosaur(1, "Rex")
+                DinosaurFactory.create(1, "carnivore", "Rex")
         );
 
         observationZone.addDinosaur(
-                new HerbivoreDinosaur(2, "Trice")
+                DinosaurFactory.create(2, "herbivore", "Trice")
         );
 
         observationZone.addDinosaur(
@@ -97,9 +85,7 @@ public class SimulationEngine {
 
         for (int i = 1; i <= 10; i++) {
 
-            tourists.add(
-                    new Tourist(i, "Tourist-" + i)
-            );
+            tourists.add(new Tourist(i, "Tourist-" + i));
         }
     }
 
@@ -107,13 +93,9 @@ public class SimulationEngine {
 
         for (int step = 1; step <= steps; step++) {
 
-            System.out.println(
-                    "\nPaso "
-                            + step
-                            + " "
-            );
+            System.out.println("\nPaso " + step);
 
-            simulateTourists();
+            simulateTourists(step);
 
             centralHub.simulateStep();
 
@@ -135,7 +117,7 @@ public class SimulationEngine {
         }
     }
 
-    private void simulateTourists() {
+    private void simulateTourists(int step) {
 
         for (Tourist tourist : tourists) {
 
@@ -143,7 +125,14 @@ public class SimulationEngine {
 
             switch (action) {
 
-                case 0 -> arrivalZone.processArrival(tourist);
+                case 0 -> {
+                    arrivalZone.processArrival(tourist);
+
+
+                    if (random.nextInt(10) < 3) {
+                        db.saveIncome("ticket", 50, step);
+                    }
+                }
 
                 case 1 -> centralHub.addTourist(tourist);
 

@@ -1,22 +1,37 @@
-# Parque Turístico de Dinosaurios
+## Parque Turistico de Dinosaurios
 
-## Descripción
+## Descripcion del proyecto
+Simulacion secuencial de un parque turistico de dinosaurios desarrollado en Java 17 con Maven.
 
-Simulación secuencial de un parque turístico de dinosaurios desarrollada en Java 17 utilizando Maven.
-
-El sistema permite:
-
-- Gestión de turistas
-- Simulación de dinosaurios
-- Eventos aleatorios
-- Manejo de zonas del parque
-- Control de energía
-- Simulación por pasos
+El sistema simula el comportamiento de visitantes, dinosaurios, zonas del parque y eventos aleatorios en una ejecucion por pasos.
 
 ---
 
-## Tecnologías utilizadas
+## Arquitectura del sistema
 
+El sistema esta compuesto por los siguientes modulos:
+
+### SimulationEngine
+Motor principal que controla la simulacion por pasos
+
+### Zones
+Representan las areas del parque como CentralHub Arrival Bathroom Observation y PowerPlant
+
+### Model
+Incluye entidades como Tourist y Dinosaur
+
+### EventManager
+Genera y ejecuta eventos aleatorios durante la simulacion
+
+### ParkMonitor
+Muestra el estado del parque en tiempo real por cada paso
+
+### DatabaseManager
+Simula el almacenamiento de ingresos gastos y eventos del parque
+
+---
+
+## Tecnologias utilizadas
 - Java 17
 - Maven
 - IntelliJ IDEA
@@ -27,35 +42,59 @@ El sistema permite:
 ## Patrones de diseño utilizados
 
 ### Singleton
-Utilizado en `ParkConfig` para manejar la configuración global del sistema.
+Utilizado en ParkConfig para manejar configuracion global del sistema
+
+### Factory Pattern
+Utilizado en DinosaurFactory para crear dinosaurios carnivoros y herbivoros de manera centralizada
 
 ### Herencia y Polimorfismo
-Aplicados en:
-- Dinosaur
-- ParkZone
-- ParkEvent
+Aplicado en la jerarquia de Dinosaur y sus tipos derivados
 
 ---
 
-## Ejecución
+## Funcionamiento del sistema
+La simulacion se ejecuta en pasos consecutivos
 
-1. Clonar repositorio
-2. Abrir proyecto en IntelliJ
-3. Ejecutar `Main.java`
+En cada paso ocurren las siguientes acciones:
+
+- Llegada de turistas al parque
+- Distribucion en zonas
+- Interaccion con dinosaurios
+- Consumo de energia del parque
+- Ejecucion de eventos aleatorios
+- Registro de ingresos en base de datos
+- Monitoreo del estado del parque
 
 ---
 
-## Funcionalidades
+## Eventos aleatorios
+Durante la simulacion pueden ocurrir:
 
-- Entrada de turistas
-- Compra de souvenirs
-- Observación de dinosaurios
-- Eventos aleatorios
-- Simulación de energía
-- Flujo dinámico de visitantes
+- Tormentas
+- Apagones masivos
+- Escape de dinosaurios
+
+---
+
+## Sistema de monitoreo
+El sistema muestra en cada paso:
+
+- Visitantes por zona
+- Energia del parque
+- Estado general de la simulacion
+
+---
+
+## Ejecucion del proyecto
+Ejecutar la clase Main
+
+---
+
+## Requisitos
+- Java 17 o superior
+- Maven configurado
 
 ---
 
 ## Autor
-
-Juan Pablo Monroy Martínez
+Juan Pablo Monroy Martinez
